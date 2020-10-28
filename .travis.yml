@@ -1,0 +1,28 @@
+dist: bionic
+
+services:
+  - docker
+
+install:
+  - docker build -t openssh-server .
+  - docker run -d -p 127.0.0.1:22:22 --name openssh-server openssh-server
+  - docker ps | grep -q openssh-server
+  - docker rm -f openssh-server
+  - exit 0
+
+before_script:
+  - apt update && apt install -y sshpass
+  - mkdir -p $HOME/.ssh
+  - ssh-keygen -b 521 -t ecdsa -q -f $HOME/.ssh/id_ecdsa -N ""
+
+jobs:
+  include:
+    - stage: Testing if a user can login with a simple password
+      script:
+        - docker run -d --rm -p 127.0.0.1:22:22 --name openssh-server -e NAME=test -e USERNAME=test -e PASSWORD=password openssh-server
+        - sshpass -p 'password' ssh test@127.0.0.1
+    - stage: Testing if a user can login with ssh key
+      script:
+        - SSH_KEY=$(cat $HOME/.ssh/id_ecdsa.pub)
+        - docker run -d --rm -p 127.0.0.1:22:22 --name openssh-server -e NAME=test -e USERNAME=test -e PASSWORD=password -e SSH_AUTHKEY="$SSH_KEY" openssh-server
+        - ssh test@127.0.0.1
