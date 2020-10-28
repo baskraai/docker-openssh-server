@@ -7,7 +7,7 @@ services:
 
 install:
   - docker build -t openssh-server .
-  - docker run -d -p 127.0.0.1:22:22 --name openssh-server openssh-server
+  - docker run -d -p 127.0.0.1:2222:22 --name openssh-server openssh-server
   - docker ps | grep -q openssh-server
   - docker rm -f openssh-server
   - exit 0
