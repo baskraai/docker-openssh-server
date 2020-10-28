@@ -6,7 +6,7 @@ services:
   - docker
 
 install:
-  - apt update && apt install -y sshpass
+  - sudo apt update && sudo apt install -y sshpass
   - mkdir -p $HOME/.ssh
   - ssh-keygen -b 521 -t ecdsa -q -f $HOME/.ssh/id_ecdsa -N ""
   - docker build -t openssh-server .
