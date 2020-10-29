@@ -11,7 +11,7 @@ jobs:
     script:
     - bash ./tests/sshpassword.sh
     - bash ./tests/sshkey.sh
-  - stage: Pushing the
+  - stage: Pushing the images
     if: branch IN (master, main, testing)
     script:
     - bash ./tests/push.sh
