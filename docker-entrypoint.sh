@@ -14,12 +14,15 @@ elif [ -z "${PASSWORD}" ]; then
 fi
 
 # Check for the optional variables, print info about them.
-if [ -z "${USERSHELL}" ]; then
+if [ "${USERSHELL}" == "zsh" ]; then
+	echo "# No shell specified, defaul BASH shell used."
+	useradd -s "/bin/zsh" -G sudo "${USERNAME}"
+elif [ "${USERSHELL}" == "sh" ]; then
+	echo "# No shell specified, defaul BASH shell used."
+	useradd -s "/bin/sh" -G sudo "${USERNAME}"
+else
 	echo "# No shell specified, defaul BASH shell used."
 	useradd -s "/bin/bash" -G sudo "${USERNAME}"
-else
-	SHELLUSED="/bin/"${USERSHELL}
-	useradd -s "${SHELLUSED}" -G sudo "${USERNAME}"
 fi
 
 # Setting the password.
