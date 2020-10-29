@@ -42,4 +42,4 @@ fi
 
 docker rm -f openssh-server
 echo "# Container has been deleted, test succesful"
-exit r
+exit 0
