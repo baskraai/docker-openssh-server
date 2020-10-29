@@ -12,6 +12,12 @@ if ! docker pull hadolint/hadolint; then
 else
     echo "# Pulled HaDoLint"
 fi
+if ! docker pull ubuntu:bionic; then
+    echo "! Ubuntu Bionic could not be pulled"
+    exit 1
+else
+    echo "# Pulled Ubuntu Bionic"
+fi
 
 mkdir -p "$HOME"/.ssh
 if ! ssh-keygen -b 521 -t ecdsa -q -f "$HOME"/.ssh/id_ecdsa -N ""; then
