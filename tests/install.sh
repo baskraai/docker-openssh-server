@@ -21,10 +21,9 @@ else
     echo "# Key generated"
 fi
 
-build=$(docker build -t openssh-server .)
+docker build -t openssh-server .
 if [ "$?" != 0 ]; then
     echo "! Error, Build not succesful"
-    echo "$build"
     exit 1
 else
     echo "# Container is build"
