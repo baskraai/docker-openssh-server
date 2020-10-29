@@ -15,7 +15,7 @@ This containers exposes the following ports:
 
 You can save the data from the Salt Master and Salt Minion outside of the container:
 
-- `/home/<username>` = de thuismap van de gebruiker
+- `/home/<username>` = the homedirectory of the user
 
 ## Usage
 
