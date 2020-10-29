@@ -1,6 +1,10 @@
 dist: bionic
 os: linux
 language: python
+branches:
+  only:
+  - master
+  - testing
 services:
 - docker
 install:
