@@ -1,4 +1,8 @@
 #!/bin/bash
+
+echo "# Cleanup from potential failure of last run"
+docker rm -f openssh-server > /dev/null 2>&1
+
 echo "# Starting the container"
 SSH_KEY=$(cat "$HOME"/.ssh/id_ecdsa.pub)
 export SSH_KEY
@@ -18,6 +22,6 @@ else
     echo "# User test is able to login with a ssh_key"
 fi
 
-docker rm -f openssh-server
+docker rm -f openssh-server > /dev/null 2>&1
 echo "# Container has been deleted, test succesful"
 exit 0

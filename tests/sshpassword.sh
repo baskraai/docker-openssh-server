@@ -1,4 +1,8 @@
 #!/bin/bash
+
+echo "# Cleanup from potential failure of last run"
+docker rm -f openssh-server > /dev/null 2>&1
+
 echo "# Starting the container"
 docker run -d --rm -p 2222:22 --name openssh-server -e NAME="test" -e USERNAME="test" -e PASSWORD="password" openssh-server
 
@@ -17,6 +21,6 @@ else
     echo "# User test is able to login with a password"
 fi
 
-docker rm -f openssh-server
+docker rm -f openssh-server > /dev/null 2>&1
 echo "# Container has been deleted, test succesful"
 exit 0
