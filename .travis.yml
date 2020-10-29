@@ -19,6 +19,8 @@ jobs:
     - bash ./tests/sshpassword.sh
     - bash ./tests/sshkey.sh
     - bash ./tests/sshshell.sh
+    - bash ./tests/sshprekey.sh
+    - bash ./tests/gitvar.sh
   - stage: Pushing the images
     if: branch IN (master, main, testing)
     script:
