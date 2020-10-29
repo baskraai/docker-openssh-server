@@ -3,7 +3,7 @@ LABEL Maintainer Bas Kraai <bas@kraai.email>
 
 
 RUN apt-get update \
-    && apt-get install -y openssl sudo curl jq vim wget nano git openssh-server zsh powerline fonts-powerline \
+    && apt-get install --no-install-recommends -y openssl sudo curl jq vim wget nano git openssh-server zsh powerline fonts-powerline \
     && rm -rf /var/lib/apt/lists/*
 
 RUN mkdir /var/run/sshd \

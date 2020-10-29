@@ -2,36 +2,39 @@
 
 echo "# Start the install of the buildenv"
 echo "# Install the required tools"
-packages=$(sudo apt update && sudo apt install -y sshpass 2>&1)
-if [ "$?" != 0 ]; then
+if ! sudo apt update && sudo apt install -y sshpass 2>&1; then
     echo "! Error, install packages failed"
-    echo "$packages"
     exit 1
 else
     echo "# packages installed"
 fi
 
-mkdir -p $HOME/.ssh
-key=$(ssh-keygen -b 521 -t ecdsa -q -f $HOME/.ssh/id_ecdsa -N "")
-if [ "$?" != 0 ]; then
+echo "# Pull the required images"
+if ! docker pull hadolint/hadolint; then
+    echo "! HaDoLint could not be pulled"
+    exit 1
+else
+    echo "# Pulled HaDoLint"
+fi
+
+mkdir -p "$HOME"/.ssh
+if ! ssh-keygen -b 521 -t ecdsa -q -f "$HOME"/.ssh/id_ecdsa -N ""; then
     echo "! Error, SSH key cannot be created"
-    echo "$key"
     exit 1
 else
     echo "# Key generated"
 fi
 
-docker build -t openssh-server .
-if [ "$?" != 0 ]; then
+
+if ! docker build -t openssh-server .; then
     echo "! Error, Build not succesful"
     exit 1
 else
     echo "# Container is build"
 fi
-run=$(docker run -d -p 2222:22 --name openssh-server -e NAME=test -e USERNAME=test -e PASSWORD=password openssh-server)
-docker ps | grep -q openssh-server
-sleep 2
-if [ "$?" != 0 ]; then
+run=$(docker run -d -p 2222:22 --name openssh-server -e NAME=test -e USERNAME=test -e PASSWORD=password openssh-server 2>&1)
+
+if ! docker ps | grep -q openssh-server; then
     echo "! Error, container is not running."
     echo "$run"
     exit 1

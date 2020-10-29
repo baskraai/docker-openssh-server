@@ -1,9 +1,7 @@
 #!/bin/bash
 echo "# Login"
-login=$(echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin)
-if [ "$?" != 0 ]; then
+if ! echo "$DOCKERHUB_PASSWORD" | docker login -u "$DOCKERHUB_USERNAME" --password-stdin; then
     echo "! Error, login not succesful"
-    echo "$login"
     exit 1
 else
     echo "# Docker Hub login succesful"

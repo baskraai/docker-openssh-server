@@ -13,8 +13,8 @@ jobs:
   include:
   - stage: Running the tests
     script:
-    - docker run --rm -i -v "$PWD/tests/hadolint.yaml":/root/.config/hadolint.yaml hadolint/hadolint < Dockerfile
     - shellcheck tests/*.sh
+    - docker run --rm -i -v "$PWD/tests/hadolint.yaml":/root/.config/hadolint.yaml hadolint/hadolint < Dockerfile
     - shellcheck ./*.sh
     - bash ./tests/sshpassword.sh
     - bash ./tests/sshkey.sh

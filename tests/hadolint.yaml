@@ -1,2 +1,2 @@
 ignored:
-  - DL3015
+  - DL3008 # Just use the latest versions of the packages
