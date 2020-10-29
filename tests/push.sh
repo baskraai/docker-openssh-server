@@ -10,13 +10,16 @@ else
 fi
 
 if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "main" ]; then
-    docker tag openssh-server gamebase/openssh-server
+    docker tag openssh-server baskraai/openssh-server
     echo "# pushing latest version to Docker Hub"
-    docker tag openssh-server gamebase/openssh-server:stable
+    docker push baskraai/openssh-server
+    docker tag openssh-server baskraai/openssh-server:stable
     echo "# pushing stable version to Docker Hub"
+    docker push baskraai/openssh-server:stable
 elif [ "$TRAVIS_BRANCH" == "testing" ]; then
-    docker tag openssh-server gamebase/openssh-server:testing
+    docker tag openssh-server baskraai/openssh-server:testing
     echo "# pushing testing version to Docker Hub"
+    docker push baskraai/openssh-server:testing
 else
     echo "! Error, branch may not be build."
     echo "$TRAVIS_BRANCH"
