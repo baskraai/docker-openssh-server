@@ -18,6 +18,7 @@ jobs:
     - shellcheck ./*.sh
     - bash ./tests/sshpassword.sh
     - bash ./tests/sshkey.sh
+    - bash ./tests/sshshell.sh
   - stage: Pushing the images
     if: branch IN (master, main, testing)
     script:
