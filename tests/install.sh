@@ -3,7 +3,7 @@
 echo "# Start the install of the buildenv"
 echo "# Install the required tools"
 sudo apt update > /dev/null 2>&1
-sudo apt install -y sshpass
+sudo apt install -y sshpass zsh
 
 echo "# Pull the required images"
 if ! docker pull hadolint/hadolint; then

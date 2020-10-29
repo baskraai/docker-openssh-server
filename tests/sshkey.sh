@@ -6,7 +6,7 @@ docker rm -f openssh-server > /dev/null 2>&1
 echo "# Starting the container"
 SSH_KEY=$(cat "$HOME"/.ssh/id_ecdsa.pub)
 export SSH_KEY
-docker run -d --rm -p 2222:22 --name openssh-server -e NAME=test -e USERNAME=test -e PASSWORD=password -e SSH_AUTHKEY="$(cat "$HOME"/.ssh/id_ecdsa.pub)" openssh-server
+docker run -d --rm -p 2222:22 --name openssh-server -e NAME=test -e USERNAME=test -e PASSWORD=password -e SSH_AUTHKEY="$(cat "$HOME"/.ssh/id_ecdsa.pub)" openssh-server > /dev/null
 
 if ! docker ps | grep -q openssh-server; then
     echo "! Error, container is not running."
