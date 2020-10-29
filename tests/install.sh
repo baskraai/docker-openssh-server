@@ -2,12 +2,8 @@
 
 echo "# Start the install of the buildenv"
 echo "# Install the required tools"
-if ! sudo apt update && sudo apt install -y sshpass 2>&1; then
-    echo "! Error, install packages failed"
-    exit 1
-else
-    echo "# packages installed"
-fi
+sudo apt update > /dev/null 2>&1
+sudo apt install -y sshpass
 
 echo "# Pull the required images"
 if ! docker pull hadolint/hadolint; then
