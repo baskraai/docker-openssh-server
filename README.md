@@ -1,7 +1,11 @@
 # SaltStack Master Container
 
+![Travis (.com) branch](https://img.shields.io/travis/com/baskraai/docker-openssh-server/master?label=Build%20Master&style=flat-square)
+![Travis (.com) branch](https://img.shields.io/travis/com/baskraai/docker-openssh-server/testing?label=Build%20Testing&style=flat-square)
+
 This is a container with a basic OpenSSH server.
 The purpose of this container is a out-of-the-box bastion-like host.
+
 
 ## Ports
 
