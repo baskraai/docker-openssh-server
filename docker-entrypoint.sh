@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/bash -x
 set -e
 
 # Check for the required variables to make the user.
@@ -14,15 +14,15 @@ elif [ -z "${PASSWORD}" ]; then
 fi
 
 # Check for the optional variables, print info about them.
-if [ -z "${SHELL}" ]; then
+if [ -z "${USERSHELL}" ]; then
 	echo "# No shell specified, defaul BASH shell used."
-	SHELL="bash"
+	useradd -s "/bin/bash" -G sudo ${USERNAME}
 else
-	SHELL="/bin/"${SHELL}
+	SHELLUSED="/bin/"${USERSHELL}
+	useradd -s ${SHELLUSED} -G sudo ${USERNAME}
 fi
 
-# Creating the user
-useradd -s ${SHELL} -G sudo ${USERNAME}
+# Setting the password.
 echo "${USERNAME}:$PASSWORD" | chpasswd
 PASSWORD=""
 
@@ -53,7 +53,7 @@ fi
 if [ ! -z "$SSH_AUTHKEY" ]; then
 	echo "# Set authorized keys for the user."
 	mkdir -p /root/.ssh
-	echo "$SSH_AUTHKEY" | tr ";" "\n" > /root/.ssh/authorized_keys
+	echo "$SSH_AUTHKEY" | tr ";" "\n" > /home/$USERNAME/.ssh/authorized_keys
 fi
 
 # Create a .gitconfig file from environment variables.

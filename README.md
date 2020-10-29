@@ -49,7 +49,7 @@ You can use the following environment variables with this container:
 | NAME | Required | Name of the user | string
 | USERNAME | Required | Username of the user | string
 | PASSWORD | Required | Password of the user | string
-| SHELL | Optional | Shell used for the user | sh, bash or zsh
+| USERSHELL | Optional | Shell used for the user | sh, bash or zsh
 | PASSWORDLESS_SUDO | Optional | Allow the user to use sudo without a password | yes or no
 | SSH_PRIVKEY | Optional | The SSH private key of the user | string
 | SSH_PUBKEY | Optional | The SSH public key of the user | string
