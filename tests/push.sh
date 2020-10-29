@@ -10,9 +10,6 @@ else
 fi
 
 if [ "$TRAVIS_BRANCH" == "master" ] || [ "$TRAVIS_BRANCH" == "main" ]; then
-    docker tag openssh-server baskraai/openssh-server
-    echo "# pushing latest version to Docker Hub"
-    docker push baskraai/openssh-server
     docker tag openssh-server baskraai/openssh-server:stable
     echo "# pushing stable version to Docker Hub"
     docker push baskraai/openssh-server:stable
