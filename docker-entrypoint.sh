@@ -8,9 +8,6 @@ if [ -z "${NAME}" ]; then
 elif [ -z "${USERNAME}" ]; then
 	echo "! Error, no USERNAME variable specified !"
 	exit 1
-elif [ -z "${PASSWORD}" ]; then
-	echo "! Error, no PASSWORD variable specified !"
-	exit 1
 fi
 
 # Check for the optional variables, print info about them.
@@ -25,13 +22,16 @@ else
 fi
 
 # Setting the password.
-echo "${USERNAME}:$PASSWORD" | chpasswd
-PASSWORD=""
+if [ "${USERSHELL}" == "zsh" ]; then
+	echo "# Change password"
+	echo "${USERNAME}:$PASSWORD" | chpasswd
+	PASSWORD=""
+else
+	echo "# No password change"
+fi
 
 # Passwordless sudo
-if [ "${PASSWORDLESS_SUDO}" == "yes" ]; then
-	echo "%sudo ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
-fi
+echo "%sudo ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers
 
 # Check for ssh keys from the user, if not regenerate new ssh keys.
 if [ -z "${SSH_PRIVKEY}" ] || [ -z "${SSH_PUBKEY}" ] ; then
